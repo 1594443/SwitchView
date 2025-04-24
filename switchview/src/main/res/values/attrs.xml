@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwitchView">
+        <!--开关状态-->
+        <attr name="status" format="boolean" />
+        <!--track设置-->
+        <!--开-track颜色-->
+        <attr name="track_on_color" format="color" />
+        <!--开-track文字-->
+        <attr name="track_on_text" format="string" />
+        <!--开-track文字颜色-->
+        <attr name="track_on_text_color" format="color" />
+
+        <!--关-track颜色-->
+        <attr name="track_off_color" format="color" />
+        <!--关-track文字-->
+        <attr name="track_off_text" format="string" />
+        <!--关-track文字颜色-->
+        <attr name="track_off_text_color" format="color" />
+
+        <!--track文字大小-->
+        <attr name="track_text_size" format="dimension" />
+
+        <!--thumb设置-->
+        <!--thumb颜色-->
+        <attr name="thumb_color" format="color" />
+        <!--thumb文字-->
+        <attr name="thumb_text" format="string" />
+        <!--thumb文字颜色-->
+        <attr name="thumb_text_color" format="color" />
+        <!--thumb文字大小-->
+        <attr name="thumb_text_size" format="dimension" />
+    </declare-styleable>
+</resources>

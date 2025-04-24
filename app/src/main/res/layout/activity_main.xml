@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.custom.switchview.SwitchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.custom.switchview.SwitchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:thumb_text="切换"
+        app:track_off_text="关"
+        app:track_on_text="开" />
+
+    <com.custom.switchview.SwitchView
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/purple_500">
+
+        <com.custom.switchview.SwitchView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            app:status="true"
+            app:thumb_color="@color/black"
+            app:thumb_text="切换"
+            app:thumb_text_color="@color/white"
+            app:thumb_text_size="28sp"
+            app:track_off_color="@color/teal_200"
+            app:track_off_text="关"
+            app:track_off_text_color="@color/white"
+            app:track_on_color="@color/purple_200"
+            app:track_on_text="开"
+            app:track_on_text_color="@color/white"
+            app:track_text_size="30sp" />
+    </LinearLayout>
+</LinearLayout>

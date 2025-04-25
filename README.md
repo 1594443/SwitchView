@@ -15,7 +15,7 @@ repositories {
 ```
 ```java
 dependencies {
-    implementation 'com.github.1594443:SwitchView:1.0.0'
+    implementation 'com.github.1594443:SwitchView:1.0.2'
 }
 ```
 VERSION_CODE : [here](https://github.com/1594443/SwitchView/releases)

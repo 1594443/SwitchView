@@ -224,7 +224,7 @@ public class SwitchView extends View {
             thumbOnDx = mWidth * 3 / 4 - rect.width() / 2 + getPaddingStart();
             Paint.FontMetricsInt thumbFontMetrics = thumbTextPaint.getFontMetricsInt();
             int thumbDy = (thumbFontMetrics.bottom - thumbFontMetrics.top) / 2 - thumbFontMetrics.bottom;
-            thumbBaseLine = mHeight / 2 + thumbDy;
+            thumbBaseLine = mHeight / 2 + thumbDy + getPaddingTop();
         }
     }
 
@@ -243,7 +243,7 @@ public class SwitchView extends View {
                 int trackDx = (mWidth / 2 - trackTextRect.width()) / 2 + getPaddingStart();
                 Paint.FontMetricsInt trackFontMetrics = trackTextPaint.getFontMetricsInt();
                 int trackDy = (trackFontMetrics.bottom - trackFontMetrics.top) / 2 - trackFontMetrics.bottom;
-                int trackBaseLine = mHeight / 2 + trackDy;
+                int trackBaseLine = mHeight / 2 + trackDy + getPaddingTop();
                 canvas.drawText(trackOnText, trackDx, trackBaseLine, trackTextPaint);
             }
 
@@ -274,7 +274,7 @@ public class SwitchView extends View {
                 int trackDx = mWidth * 3 / 4 - trackTextRect.width() / 2 + getPaddingStart();
                 Paint.FontMetricsInt trackFontMetrics = trackTextPaint.getFontMetricsInt();
                 int trackDy = (trackFontMetrics.bottom - trackFontMetrics.top) / 2 - trackFontMetrics.bottom;
-                int trackBaseLine = getHeight() / 2 + trackDy;
+                int trackBaseLine = mHeight / 2 + trackDy + getPaddingTop();
                 canvas.drawText(trackOffText, trackDx, trackBaseLine, trackTextPaint);
             }
             if (animator == null) {

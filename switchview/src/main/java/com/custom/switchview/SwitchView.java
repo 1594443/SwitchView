@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
  */
 public class SwitchView extends View {
 
-    private Context context;
+    private final Context context;
     //开关状态
     private boolean status = false;
     //开-track颜色
@@ -75,9 +75,9 @@ public class SwitchView extends View {
     //thumb胶囊圆角半径
     private float thumbRadius;
 
-    private float thumbOnX, thumbOffX, thumbX, thumbBaseLine;
+    private float thumbOnDx, thumbOffDx, thumbDx, thumbBaseLine;
 
-    ValueAnimator animator;
+    private ValueAnimator animator;
 
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
@@ -166,6 +166,7 @@ public class SwitchView extends View {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
         switch (widthMode) {
+            case MeasureSpec.UNSPECIFIED:
             case MeasureSpec.AT_MOST:
                 width = PxUtils.dpToPx(context, 100) + getPaddingStart() + getPaddingEnd();
                 break;
@@ -174,6 +175,7 @@ public class SwitchView extends View {
                 break;
         }
         switch (heightMode) {
+            case MeasureSpec.UNSPECIFIED:
             case MeasureSpec.AT_MOST:
                 height = PxUtils.dpToPx(context, 30) + getPaddingTop() + getPaddingBottom();
                 break;
@@ -214,14 +216,15 @@ public class SwitchView extends View {
         //thumb胶囊圆角半径，取宽和高中最小值的一半作为圆角矩形的半径
         thumbRadius = Math.min(thumbOffRect.right, thumbOffRect.bottom) / 2;
 
+        //计算thumb文字的位置
         if (thumbText != null) {
             Rect rect = new Rect();
             thumbTextPaint.getTextBounds(thumbText, 0, thumbText.length(), rect);
-            thumbOffX = (mWidth / 2 - rect.width()) / 2 + getPaddingStart();
-            thumbOnX = mWidth * 3 / 4 - rect.width() / 2 + getPaddingStart();
+            thumbOffDx = (mWidth / 2 - rect.width()) / 2 + getPaddingStart();
+            thumbOnDx = mWidth * 3 / 4 - rect.width() / 2 + getPaddingStart();
             Paint.FontMetricsInt thumbFontMetrics = thumbTextPaint.getFontMetricsInt();
             int thumbDy = (thumbFontMetrics.bottom - thumbFontMetrics.top) / 2 - thumbFontMetrics.bottom;
-            thumbBaseLine = getHeight() / 2 + thumbDy;
+            thumbBaseLine = mHeight / 2 + thumbDy;
         }
     }
 
@@ -240,7 +243,7 @@ public class SwitchView extends View {
                 int trackDx = (mWidth / 2 - trackTextRect.width()) / 2 + getPaddingStart();
                 Paint.FontMetricsInt trackFontMetrics = trackTextPaint.getFontMetricsInt();
                 int trackDy = (trackFontMetrics.bottom - trackFontMetrics.top) / 2 - trackFontMetrics.bottom;
-                int trackBaseLine = getHeight() / 2 + trackDy;
+                int trackBaseLine = mHeight / 2 + trackDy;
                 canvas.drawText(trackOnText, trackDx, trackBaseLine, trackTextPaint);
             }
 
@@ -249,14 +252,14 @@ public class SwitchView extends View {
                 canvas.drawRoundRect(thumbOnRect, thumbRadius, thumbRadius, thumbPaint);
                 //画开-thumb文字
                 if (thumbText != null) {
-                    canvas.drawText(thumbText, thumbOnX, thumbBaseLine, thumbTextPaint);
+                    canvas.drawText(thumbText, thumbOnDx, thumbBaseLine, thumbTextPaint);
                 }
             } else {
                 //画开-thumb胶囊
                 canvas.drawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
                 //画开-thumb文字
                 if (thumbText != null) {
-                    canvas.drawText(thumbText, thumbX, thumbBaseLine, thumbTextPaint);
+                    canvas.drawText(thumbText, thumbDx, thumbBaseLine, thumbTextPaint);
                 }
             }
         } else {
@@ -274,23 +277,21 @@ public class SwitchView extends View {
                 int trackBaseLine = getHeight() / 2 + trackDy;
                 canvas.drawText(trackOffText, trackDx, trackBaseLine, trackTextPaint);
             }
-
             if (animator == null) {
                 //画关-thumb胶囊
                 canvas.drawRoundRect(thumbOffRect, thumbRadius, thumbRadius, thumbPaint);
                 //画关-thumb文字
                 if (thumbText != null) {
-                    canvas.drawText(thumbText, thumbOffX, thumbBaseLine, thumbTextPaint);
+                    canvas.drawText(thumbText, thumbOffDx, thumbBaseLine, thumbTextPaint);
                 }
             } else {
                 //画关-thumb胶囊
                 canvas.drawRoundRect(thumbRect, thumbRadius, thumbRadius, thumbPaint);
                 //画关-thumb文字
                 if (thumbText != null) {
-                    canvas.drawText(thumbText, thumbX, thumbBaseLine, thumbTextPaint);
+                    canvas.drawText(thumbText, thumbDx, thumbBaseLine, thumbTextPaint);
                 }
             }
-
         }
     }
 
@@ -318,7 +319,7 @@ public class SwitchView extends View {
                 thumbRect.top = thumbOffRect.top;
                 thumbRect.right = thumbOffRect.right + (thumbOnRect.right - thumbOffRect.right) * animatedFraction; // 计算新的right位置
                 thumbRect.bottom = thumbOffRect.bottom;
-                thumbX = thumbOffX + (thumbOnX - thumbOffX) * animatedFraction;//计算新的X位置
+                thumbDx = thumbOffDx + (thumbOnDx - thumbOffDx) * animatedFraction;//计算新的X位置
                 invalidate();
             });
             animator.start();
@@ -332,7 +333,7 @@ public class SwitchView extends View {
                 thumbRect.top = thumbOnRect.top;
                 thumbRect.right = thumbOnRect.right - (thumbOnRect.right - thumbOffRect.right) * animatedFraction; // 计算新的right位置
                 thumbRect.bottom = thumbOnRect.bottom;
-                thumbX = thumbOnX - (thumbOnX - thumbOffX) * animatedFraction;//计算新的X位置
+                thumbDx = thumbOnDx - (thumbOnDx - thumbOffDx) * animatedFraction;//计算新的X位置
                 invalidate();
             });
             animator.start();
